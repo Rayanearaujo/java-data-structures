@@ -44,18 +44,10 @@ public class BoggleBoard {
     }
 
     private static Boolean shouldProceed(int i, int j, Boolean[][] visited){
-        return ((i < LINES)
-                && (j < LINES)
-                && (i >= 0)
-                && (j >= 0)
-                && !visited[i][j]
-        );
+        return ((i < LINES) && (j < LINES) && (i >= 0) && (j >= 0) && !visited[i][j]);
     }
 
     private static void searchWord(char[][] boggle, TrieNode node, int i, int j, Boolean[][] visited, String word){
-//        System.out.println(boggle[i][j] + "(" + i + " " + j + ")");
-//        System.out.println(" ");
-
         if(!shouldProceed(i, j, visited)){
             return;
         }
