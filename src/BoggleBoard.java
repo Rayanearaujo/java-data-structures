@@ -55,67 +55,21 @@ public class BoggleBoard {
         visited[i][j] = true;
         word = word + boggle[i][j];
 
-        if(shouldProceed(i+1, j+1, visited)) {
-            TrieNode child = node.getChildNode(boggle[i+1][j+1]);
+        /* Check all connections with the letter */
 
-            if (child != null) {
-                searchWord(boggle, child, i+1, j+1, visited, word);
-            }
-        }
+        for(int k = i - 1; k <= i + 1; k ++){
+            for(int l = j - 1; l <= j + 1; l++){
+                if(k == i && l == j) {
+                    continue;
+                }
 
-        if(shouldProceed(i+1, j, visited)) {
-            TrieNode child = node.getChildNode(boggle[i+1][j]);
+                if(shouldProceed(k, l, visited)) {
+                    TrieNode child = node.getChildNode(boggle[k][l]);
 
-            if (child != null) {
-                searchWord(boggle, child, i+1, j, visited, word);
-            }
-        }
-
-        if(shouldProceed(i+1, j-1, visited)) {
-            TrieNode child = node.getChildNode(boggle[i+1][j-1]);
-
-            if (child != null) {
-                searchWord(boggle, child, i+1, j-1, visited, word);
-            }
-        }
-
-        if(shouldProceed(i, j-1, visited)) {
-            TrieNode child = node.getChildNode(boggle[i][j-1]);
-
-            if (child != null) {
-                searchWord(boggle, child, i, j-1, visited, word);
-            }
-        }
-
-        if(shouldProceed(i-1, j-1, visited)) {
-            TrieNode child = node.getChildNode(boggle[i-1][j-1]);
-
-            if (child != null) {
-                searchWord(boggle, child, i-1, j-1, visited, word);
-            }
-        }
-
-        if(shouldProceed(i-1, j, visited)) {
-            TrieNode child = node.getChildNode(boggle[i-1][j]);
-
-            if (child != null) {
-                searchWord(boggle, child, i-1, j, visited, word);
-            }
-        }
-
-        if(shouldProceed(i-1, j+1, visited)) {
-            TrieNode child = node.getChildNode(boggle[i-1][j+1]);
-
-            if (child != null) {
-                searchWord(boggle, child, i-1, j+1, visited, word);
-            }
-        }
-
-        if(shouldProceed(i, j+1, visited)) {
-            TrieNode child = node.getChildNode(boggle[i][j+1]);
-
-            if (child != null) {
-                searchWord(boggle, child, i, j+1, visited, word);
+                    if (child != null) {
+                        searchWord(boggle, child, k, l, visited, word);
+                    }
+                }
             }
         }
 
