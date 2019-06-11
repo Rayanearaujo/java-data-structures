@@ -179,6 +179,29 @@ public class BinaryTree {
 
             return false;
         }
+
+        private Boolean isBst(int min, int max){
+            Boolean isLeftOk = true;
+            Boolean isRightOk = true;
+
+            if(this.value > max || this.value < min){
+                return false;
+            }
+
+            if(this.left != null){
+                isLeftOk = this.left.isBst(min, this.value);
+            }
+
+            if(this.right != null){
+                isRightOk = this.right.isBst(this.value + 1, max);
+            }
+
+            return isLeftOk && isRightOk;
+        }
+
+        public Boolean isBst(){
+            return isBst(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        }
     }
 
     public static void main(String[] args){
@@ -215,5 +238,34 @@ public class BinaryTree {
         tree2.insert(9);
 
         System.out.println("Are tree1 and tree2 equal? " + tree.sameTree(tree1, tree2));
+
+        testBst();
+    }
+
+    private static void testBst() {
+        Node node = new Node(5);
+        Node node1 = new Node(2);
+        Node node2 = new Node(7);
+        Node node3 = new Node(6);
+        Node node4 = new Node(1);
+        Node node5 = new Node(25);
+        Node node6 = new Node(0);
+
+        node.left = node1;
+        node.right = node2;
+        System.out.println("is Bst? " + node.isBst());
+
+        node.left = node3;
+        node.right = node2;
+        System.out.println("is Bst? " + node.isBst());
+
+        node.left = node1;
+        node.left.left = node4;
+        node.right = node2;
+        System.out.println("is Bst? " + node.isBst());
+
+        node.left.right = node3;
+        System.out.println("is Bst? " + node.isBst());
+
     }
 }
