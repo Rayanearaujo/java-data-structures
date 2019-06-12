@@ -221,6 +221,28 @@ public class BinaryTree {
                 }
             }
         }
+
+        public int maxWidth(){
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(this);
+            int maxWidth = queue.size();
+
+            while(!queue.isEmpty()){
+                Node node = queue.poll();
+
+                if(node.left != null){
+                    queue.add(node.left);
+                }
+
+                if(node.right != null){
+                    queue.add(node.right);
+                }
+
+                maxWidth = max(maxWidth, queue.size());
+            }
+
+            return maxWidth;
+        }
     }
 
     public static void main(String[] args){
@@ -260,7 +282,11 @@ public class BinaryTree {
 
         testBst();
 
+        tree1.insert(10);
+        tree1.insert(4);
         tree1.levelOrderTraversal();
+
+        System.out.println("\nThe largest width is: " + tree1.maxWidth());
     }
 
     private static void testBst() {
