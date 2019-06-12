@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 import static sun.swing.MenuItemLayoutHelper.max;
 
@@ -202,6 +204,23 @@ public class BinaryTree {
         public Boolean isBst(){
             return isBst(Integer.MIN_VALUE, Integer.MAX_VALUE);
         }
+
+        public void levelOrderTraversal(){
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(this);
+
+            while(!queue.isEmpty()) {
+                Node node = queue.poll();
+                System.out.print(node.value + " ");
+
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if(node.right != null){
+                    queue.add(node.right);
+                }
+            }
+        }
     }
 
     public static void main(String[] args){
@@ -240,6 +259,8 @@ public class BinaryTree {
         System.out.println("Are tree1 and tree2 equal? " + tree.sameTree(tree1, tree2));
 
         testBst();
+
+        tree1.levelOrderTraversal();
     }
 
     private static void testBst() {
