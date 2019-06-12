@@ -243,6 +243,34 @@ public class BinaryTree {
 
             return maxWidth;
         }
+
+        private void calculateVerticalSum(Node node, Map<Integer, Integer> columns, int position){
+            int oldValue = columns.getOrDefault(position, 0);
+            columns.put(position, oldValue + node.value);
+
+            int leftPosition = position;
+            int rightPosition = position;
+
+            if(node.left != null){
+                leftPosition --;
+                calculateVerticalSum(node.left, columns, leftPosition);
+            }
+
+            if(node.right != null){
+                rightPosition++;
+                calculateVerticalSum(node.right, columns, rightPosition);
+            }
+        }
+
+        public void verticalSum(){
+            Map<Integer, Integer> columns = new HashMap<>();
+
+            calculateVerticalSum(this, columns, 0);
+
+            for(Map.Entry<Integer, Integer> column : columns.entrySet()){
+                System.out.println("Column " + column.getKey() + " has the vertical sum: " + column.getValue());
+            }
+        }
     }
 
     public static void main(String[] args){
@@ -284,9 +312,12 @@ public class BinaryTree {
 
         tree1.insert(10);
         tree1.insert(4);
+        tree1.insert(7);
         tree1.levelOrderTraversal();
 
         System.out.println("\nThe largest width is: " + tree1.maxWidth());
+
+        tree1.verticalSum();
     }
 
     private static void testBst() {
